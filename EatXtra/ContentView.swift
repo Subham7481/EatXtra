@@ -1,21 +1,19 @@
-//
-//  ContentView.swift
-//  EatXtra
-//
-//  Created by Subham Patel on 13/01/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ProfileViewViewModel() 
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if viewModel.isLoggedIn{
+                HomeView()
+            } else {
+                LoginView()
+            }
         }
-        .padding()
+        .onAppear {
+            viewModel.checkAuthentication()
+        }
     }
 }
 

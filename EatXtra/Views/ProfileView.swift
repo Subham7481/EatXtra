@@ -111,8 +111,8 @@ struct ProfileDetails: View {
     var user: User
 
     var body: some View {
-        VStack {
-            HStack{
+        HStack {
+            VStack{
                 Text(user.displayName ?? "User")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
@@ -129,6 +129,7 @@ struct ProfileDetails: View {
                     .font(.callout)
                     .foregroundColor(Color.gray.opacity(0.8))
             }
+            Spacer()
         }
     }
 }
@@ -164,7 +165,7 @@ struct ActionButton: View {
                 .foregroundColor(isSelected ? Color.white : Color.green)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.white, lineWidth: 1) // Border for unselected button
+                        .stroke(Color.white.opacity(0.1)) 
                 )
                 .cornerRadius(8)
         }

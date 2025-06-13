@@ -6,12 +6,18 @@
 //
 import FirebaseAuth
 import Combine
-
+import SwiftUI
 class LoginViewViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String?
+    
+    init(){
+        DispatchQueue.main.async {
+               self.isLoggedIn = Auth.auth().currentUser != nil
+        }
+    }
     
     func signIn(completion: @escaping (Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] _, error in

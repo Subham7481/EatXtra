@@ -9,14 +9,15 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewViewModel()
-    @State private var navigateToLogin = false
+    @State var navigateToLogin = false
 
     var body: some View {
         ZStack{
             Color.gray.opacity(0.1)
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(.all)
             VStack {
-                ProfileHeader()
+                ProfileHeader(viewModel: viewModel, navigateToLogin: $navigateToLogin)
+                    .padding(.top, 40)
                 ProfileStats()
                 
                 if let user = viewModel.user {
@@ -24,32 +25,37 @@ struct ProfileView: View {
                 }
                 
                 SubButtons()
+                Spacer()
                 
             }
             .onAppear {
                 viewModel.fetchUserData()
             }
-            Spacer()
         }
     }
 }
 
 struct ProfileHeader: View {
+    @ObservedObject var viewModel: ProfileViewViewModel
+    @Binding var navigateToLogin: Bool
     var body: some View {
-        HStack {
-            Spacer()
+        ZStack{
             Text("Profile")
                 .font(.headline)
                 .fontWeight(.bold)
-                .padding()
-            Spacer()
-            ProfileMenu()
+            
+            HStack {
+                Spacer()
+                ProfileMenu(viewModel: viewModel, navigateToLogin: $navigateToLogin)
+            }
         }
-        .padding()
+//        .padding()
     }
 }
 
 struct ProfileMenu: View {
+    @ObservedObject var viewModel: ProfileViewViewModel
+    @Binding var navigateToLogin: Bool
     var body: some View {
         Menu {
             Button(action: { print("Share Clicked") }) {
@@ -64,6 +70,19 @@ struct ProfileMenu: View {
             Button(action: { print("Unsave Clicked") }) {
                 Label("Unsave", systemImage: "bookmark.slash")
             }
+            Button(action: {
+                viewModel.logout{ success in
+                    navigateToLogin = false
+                    if success {
+                        print("Logout successful!")
+                        navigateToLogin = true
+                    } else {
+                        print("Logout failed.")
+                    }
+                }
+            }) {
+                Label("Logout", systemImage: "arrow.backward.square")
+            }
         } label: {
             Image(systemName: "ellipsis")
                 .font(.system(size: 25))
@@ -75,7 +94,7 @@ struct ProfileMenu: View {
 
 struct ProfileStats: View {
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 40) {
             Image(systemName: "person.circle.fill")
                 .font(.system(size: 100))
                 .foregroundColor(Color.gray)
@@ -86,7 +105,7 @@ struct ProfileStats: View {
                 ProfileStatItem(label: "Following", value: "270")
             }
         }
-        .padding()
+//        .padding()
     }
 }
 
@@ -112,23 +131,27 @@ struct ProfileDetails: View {
 
     var body: some View {
         HStack {
-            VStack{
+            VStack(alignment: .leading, spacing: 5){
                 Text(user.displayName ?? "User")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
-                    .padding()
+                    .padding(.horizontal, 25)
                 
                 Text("Chef")
                     .font(.footnote)
                     .foregroundColor(Color.gray.opacity(0.8))
+                    .padding(.horizontal, 25)
                 
                 Text("Private Chef")
                     .font(.callout)
+                    .padding(.horizontal, 25)
                 
                 Text("Passionate about food and life.🍕🍔🍣🍎")
                     .font(.callout)
                     .foregroundColor(Color.gray.opacity(0.8))
+                    .padding(.horizontal, 25)
             }
+            .padding(.horizontal)
             Spacer()
         }
     }

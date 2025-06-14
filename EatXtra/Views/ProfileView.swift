@@ -90,7 +90,7 @@ struct ProfileMenu: View {
                 .font(.system(size: 25))
                 .foregroundColor(Color.black)
                 .padding()
-        }.padding(.horizontal,5)
+        }.padding(.horizontal,15)
     }
 }
 
@@ -98,48 +98,56 @@ struct ProfileStats: View {
     @ObservedObject var viewModel: ProfileViewViewModel
     @Binding var selectedUIImage: UIImage?
     @Binding var showImagePicker: Bool
+    @State private var showImageOptions = false  // To control popup
 
     var body: some View {
         HStack(spacing: 40) {
-            if let image = viewModel.profileImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                    .shadow(radius: 5)
-            } else {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.gray)
+            
+            // Profile Image with tap gesture
+            Group {
+                if let image = viewModel.profileImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                        .shadow(radius: 5)
+                } else {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray)
+                }
+            }
+            .onTapGesture {
+                showImageOptions = true
+            }
+            .confirmationDialog("Profile Image", isPresented: $showImageOptions) {
+                Button("Upload Image") {
+                    showImagePicker = true
+                }
+                Button("Remove Image", role: .destructive) {
+                    viewModel.removeProfileImage()
+                }
+                Button("Cancel", role: .cancel) {}
             }
 
-            Button(action: {
-                showImagePicker = true
-            }) {
-                Image(systemName: "camera.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 20, height: 20)
+            // Profile Stats
+            HStack {
+                ProfileStatItem(label: "Recipe", value: "4")
+                ProfileStatItem(label: "Followers", value: "2.5 M")
+                ProfileStatItem(label: "Following", value: "270")
             }
-            Spacer()
         }
         .sheet(isPresented: $showImagePicker, onDismiss: {
             if let selected = selectedUIImage {
                 viewModel.saveImageToDisk(selected)
-                viewModel.profileImage = selected // Optional: update view immediately
             }
         }) {
             ImagePicker(image: $selectedUIImage)
         }
-
-        HStack {
-            ProfileStatItem(label: "Recipe", value: "4")
-            ProfileStatItem(label: "Followers", value: "2.5 M")
-            ProfileStatItem(label: "Following", value: "270")
-        }
+        .padding(.horizontal)
     }
 }
 

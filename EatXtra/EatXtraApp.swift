@@ -11,6 +11,7 @@ import Firebase
 @main
 struct EatXtraApp: App {
     @StateObject var viewModel = LoginViewViewModel()
+    @StateObject var vm = ProfileViewViewModel()
     init(){
         FirebaseApp.configure()
     }
@@ -18,7 +19,7 @@ struct EatXtraApp: App {
     var body: some Scene {
         WindowGroup {
             if viewModel.isLoggedIn {
-                HomeView()
+                HomeView(viewModel: vm)
                     .environmentObject(viewModel)
             } else {
                 SplashView()

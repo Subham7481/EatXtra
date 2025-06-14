@@ -22,6 +22,7 @@ struct NewRecipe: Identifiable{
 }
 
 struct HomeView: View {
+    @ObservedObject var viewModel: ProfileViewViewModel
     @State private var selectedTab = 0
     let tabbaritems: [TabBarItem] = [
         TabBarItem(name: "Home", image: "house.circle.fill"),
@@ -98,7 +99,7 @@ struct HomeView: View {
                     // Show the main content of HomeView
                     VStack(spacing: 20) {
                         Spacer()
-                        HeaderView()
+                        HeaderView(viewModel: viewModel)
                         SearchSection()
                         CategoryButtons(categories: categories, selectedCategory: $selectedCategory)
                         ScrollableDishesView(selectedCategory: selectedCategory, dishes: dishes)
@@ -207,6 +208,7 @@ struct CurvedTabBarShape: Shape {
 }
 
 struct HeaderView: View {
+    @ObservedObject var viewModel: ProfileViewViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -221,13 +223,24 @@ struct HeaderView: View {
             Spacer()
             
             // Profile Image
-            Image(systemName: "person.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
-                .foregroundColor(.yellow.opacity(0.5))
+            if let image = viewModel.profileImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(.yellow.opacity(0.5))
+            }
         }
         .padding([.horizontal, .top], 20)
+        .onAppear {
+            viewModel.loadImageFromDisk()
+        }
     }
 }
 
@@ -476,6 +489,6 @@ struct NewRecipeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(viewModel: ProfileViewViewModel())
     }
 }

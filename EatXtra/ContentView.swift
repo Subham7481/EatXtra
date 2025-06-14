@@ -6,7 +6,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.isLoggedIn{
-                HomeView()
+                HomeView(viewModel: viewModel)
             } else {
                 LoginView()
             }

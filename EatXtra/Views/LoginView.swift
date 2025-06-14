@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
+    @StateObject var vm = ProfileViewViewModel()
     @State private var navigateToHome = false
     @State private var isLoading: Bool = false
     @State private var isPasswordVisible: Bool = false
@@ -144,7 +145,7 @@ struct LoginView: View {
                     }
                 }
                 .background(
-                    NavigationLink("", destination: HomeView(), isActive: $navigateToHome)
+                    NavigationLink("", destination: HomeView(viewModel: vm), isActive: $navigateToHome)
                 )
 
                 

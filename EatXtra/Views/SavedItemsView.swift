@@ -10,12 +10,19 @@ import SwiftUI
 struct SavedItemsView: View {
     var body: some View {
         VStack{
-            Text("Saved Recipes")
-                .font(.title3)
-                .bold()
+            MessageView()
+                .padding(.top, 50)
             
             Spacer()
         }
+    }
+}
+
+struct MessageView: View {
+    var body: some View{
+        Text("Saved Recipes")
+            .font(.headline)
+            .fontWeight(.bold)
     }
 }
 

@@ -55,12 +55,49 @@ class ProfileViewViewModel: ObservableObject {
 
     func loadImageFromDisk() {
         let filename = getDocumentsDirectory().appendingPathComponent("profile.jpg")
-        if let data = try? Data(contentsOf: filename) {
-            self.profileImage = UIImage(data: data)
+        if FileManager.default.fileExists(atPath: filename.path),
+           let data = try? Data(contentsOf: filename),
+           let image = UIImage(data: data) {
+            self.profileImage = image
+        } else {
+            self.profileImage = nil  // clear the image if not found
         }
     }
 
     private func getDocumentsDirectory() -> URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+    
+//    func profileImagePath() -> URL? {
+//        let fileManager = FileManager.default
+//        if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
+//            return documentsURL.appendingPathComponent("profile_image.png") // You can change the name if needed
+//        }
+//        return nil
+//    }
+    
+//    func removeSavedImage() {
+//        let fileManager = FileManager.default
+//        if let path = profileImagePath() {
+//            try? fileManager.removeItem(at: path)
+//            self.profileImage = nil
+//        }
+//    }
+    
+    var profileImagePath: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("profile.jpg")
+    }
+
+    func removeProfileImage() {
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: profileImagePath.path) {
+            do {
+                try fileManager.removeItem(at: profileImagePath)
+                profileImage = nil
+            } catch {
+                print("Error removing image: \(error.localizedDescription)")
+            }
+        }
     }
 }

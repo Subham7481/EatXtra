@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewViewModel()
     @State var navigateToLogin = false
+    @State var showImagePicker = false
+    @State var selectedUIImage: UIImage?
 
     var body: some View {
         ZStack{
@@ -18,7 +20,7 @@ struct ProfileView: View {
             VStack {
                 ProfileHeader(viewModel: viewModel, navigateToLogin: $navigateToLogin)
                     .padding(.top, 40)
-                ProfileStats()
+                ProfileStats(viewModel: viewModel, selectedUIImage: $selectedUIImage, showImagePicker: $showImagePicker)
                 
                 if let user = viewModel.user {
                     ProfileDetails(user: user)
@@ -93,19 +95,51 @@ struct ProfileMenu: View {
 }
 
 struct ProfileStats: View {
+    @ObservedObject var viewModel: ProfileViewViewModel
+    @Binding var selectedUIImage: UIImage?
+    @Binding var showImagePicker: Bool
+
     var body: some View {
         HStack(spacing: 40) {
-            Image(systemName: "person.circle.fill")
-                .font(.system(size: 100))
-                .foregroundColor(Color.gray)
-            
-            HStack {
-                ProfileStatItem(label: "Recipe", value: "4")
-                ProfileStatItem(label: "Followers", value: "2.5 M")
-                ProfileStatItem(label: "Following", value: "270")
+            if let image = viewModel.profileImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+                    .shadow(radius: 5)
+            } else {
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.gray)
             }
+
+            Button(action: {
+                showImagePicker = true
+            }) {
+                Image(systemName: "camera.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+            }
+            Spacer()
         }
-//        .padding()
+        .sheet(isPresented: $showImagePicker, onDismiss: {
+            if let selected = selectedUIImage {
+                viewModel.saveImageToDisk(selected)
+                viewModel.profileImage = selected // Optional: update view immediately
+            }
+        }) {
+            ImagePicker(image: $selectedUIImage)
+        }
+
+        HStack {
+            ProfileStatItem(label: "Recipe", value: "4")
+            ProfileStatItem(label: "Followers", value: "2.5 M")
+            ProfileStatItem(label: "Following", value: "270")
+        }
     }
 }
 
@@ -188,12 +222,45 @@ struct ActionButton: View {
                 .foregroundColor(isSelected ? Color.white : Color.green)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.white.opacity(0.1)) 
+                        .stroke(Color.white.opacity(0.1))
                 )
                 .cornerRadius(8)
         }
     }
 }
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.image = uiImage
+            }
+            picker.dismiss(animated: true)
+        }
+    }
+}
+
 
 #Preview {
     ProfileView()

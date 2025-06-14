@@ -7,7 +7,8 @@
 
 import Foundation
 import FirebaseAuth
-
+import UIKit
+import FirebaseStorage
 class RegisterViewViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var email: String = ""

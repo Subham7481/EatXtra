@@ -6,3 +6,6 @@
 //
 
 import Foundation
+class HomeViewViewModel: ObservableObject{
+    
+}

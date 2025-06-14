@@ -327,54 +327,54 @@ struct ScrollableDishesView: View {
     var body: some View {
         VStack{
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 20) {
-                    ForEach(dishes[selectedCategory] ?? [], id: \.id) { dish in
-                        ZStack(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.gray.opacity(0.2))
-                                .frame(width: 150, height: 200)
+            LazyHStack(spacing: 20) {
+                ForEach(dishes[selectedCategory] ?? [], id: \.id) { dish in
+                    ZStack(alignment: .leading) {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 150, height: 200)
+                        
+                        VStack(alignment: .center, spacing: 10) {
+                            Image(dish.image)
+                                .resizable()
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
+                                .padding(.bottom, 10)
                             
-                            VStack(alignment: .center, spacing: 10) {
-                                Image(dish.image)
+                            Text(dish.name)
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                            
+                            Spacer()
+                        }
+                        .frame(width: 150, height: 200, alignment: .top)
+                        .padding(.bottom, 25)
+                        
+                        VStack(alignment: .leading) {
+                            Text(" ")
+                             .padding(.top, 160)
+                             .padding(.leading, 10)
+                             .font(.footnote)
+                             .foregroundColor(.black)
+                         
+                        HStack {
+                            Text(dish.time)
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                                .padding([.leading, .bottom], 0)
+                                .padding()
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                // Your save action here
+                            }) {
+                                Image(systemName: "bookmark.fill")
                                     .resizable()
-                                    .frame(width: 120, height: 120)
-                                    .clipShape(Circle())
-                                    .padding(.bottom, 10)
-                                
-                                Text(dish.name)
-                                    .font(.headline)
-                                    .multilineTextAlignment(.center)
-                                
-                                Spacer()
-                            }
-                            .frame(width: 150, height: 200, alignment: .top)
-                            .padding(.bottom, 25)
-                            
-                            VStack(alignment: .leading) {
-                                Text(" ")
-                                    .padding(.top, 160)
-                                    .padding(.leading, 10)
-                                    .font(.footnote)
-                                    .foregroundColor(.black)
-                                
-                                HStack {
-                                    Text(dish.time)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                        .padding([.leading, .bottom], 0)
-                                        .padding()
-                                    
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        // Your save action here
-                                    }) {
-                                        Image(systemName: "bookmark.fill")
-                                            .resizable()
-                                            .frame(width: 15, height: 15)
-                                            .foregroundColor(.gray)
-                                            .padding(8)
-                                            .background(Circle().fill(Color.white))
+                                    .frame(width: 15, height: 15)
+                                    .foregroundColor(.gray)
+                                    .padding(8)
+                                    .background(Circle().fill(Color.white))
                                     }
                                     .padding(.trailing, 10)
                                 }

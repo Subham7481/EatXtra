@@ -327,64 +327,66 @@ struct ScrollableDishesView: View {
     var body: some View {
         VStack{
             ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 20) {
-                ForEach(dishes[selectedCategory] ?? [], id: \.id) { dish in
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 150, height: 200)
-                        
-                        VStack(alignment: .center, spacing: 10) {
-                            Image(dish.image)
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                                .padding(.bottom, 10)
-                            
-                            Text(dish.name)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                            
-                            Spacer()
-                        }
-                        .frame(width: 150, height: 200, alignment: .top)
-                        .padding(.bottom, 25)
-                        
-                        VStack(alignment: .leading) {
-                            Text(" ")
-                             .padding(.top, 160)
-                             .padding(.leading, 10)
-                             .font(.footnote)
-                             .foregroundColor(.black)
-                         
-                        HStack {
-                            Text(dish.time)
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                                .padding([.leading, .bottom], 0)
-                                .padding()
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                // Your save action here
-                            }) {
-                                Image(systemName: "bookmark.fill")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .foregroundColor(.gray)
-                                    .padding(8)
-                                    .background(Circle().fill(Color.white))
-                                    }
-                                    .padding(.trailing, 10)
+                LazyHStack(spacing: 20) {
+                    ForEach(dishes[selectedCategory] ?? [], id: \.id) { dish in
+//                        NavigationLink(destination: RecipeDetails(recipeName: dish.name)) {
+                            ZStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.gray.opacity(0.2))
+                                    .frame(width: 150, height: 200)
+                                
+                                VStack(alignment: .center, spacing: 10) {
+                                    Image(dish.image)
+                                        .resizable()
+                                        .frame(width: 120, height: 120)
+                                        .clipShape(Circle())
+                                        .padding(.bottom, 10)
+                                    
+                                    Text(dish.name)
+                                        .font(.headline)
+                                        .multilineTextAlignment(.center)
+                                    
+                                    Spacer()
                                 }
-                                .padding(.bottom, 35)
-                            }//save button end here
+                                .frame(width: 150, height: 200, alignment: .top)
+                                .padding(.bottom, 25)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(" ")
+                                        .padding(.top, 160)
+                                        .padding(.leading, 10)
+                                        .font(.footnote)
+                                        .foregroundColor(.black)
+                                    
+                                    HStack {
+                                        Text(dish.time)
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                            .padding([.leading, .bottom], 0)
+                                            .padding()
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            // Your save action here
+                                        }) {
+                                            Image(systemName: "bookmark.fill")
+                                                .resizable()
+                                                .frame(width: 15, height: 15)
+                                                .foregroundColor(.gray)
+                                                .padding(8)
+                                                .background(Circle().fill(Color.white))
+                                        }
+                                        .padding(.trailing, 10)
+                                    }
+                                    .padding(.bottom, 35)
+                                }//save button end here
+                            }
                         }
                     }
+                    .padding(.horizontal, 25)
                 }
-                .padding(.horizontal, 25)
-            }
+//            }
         }
     }
 }
@@ -414,73 +416,73 @@ struct NewRecipeView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
-                    ForEach(newRecipeItems.indices, id: \.self) { index in
-                        let dish = newRecipeItems[index]
+                ForEach(newRecipeItems.indices, id: \.self) { index in
+                    let dish = newRecipeItems[index]
                         
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 15)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.white)
-                                .frame(width: 280, height: 110)
+                    .frame(width: 280, height: 110)
+                
+                VStack(alignment: .center, spacing: 10) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(dish.recipeName)
+                                .font(.headline)
+                                .multilineTextAlignment(.leading)
                             
-                            VStack(alignment: .center, spacing: 10) {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(dish.recipeName)
-                                            .font(.headline)
-                                            .multilineTextAlignment(.leading)
-                                        
-                                        // Display 5-star rating
-                                        HStack {
-                                            ForEach(0..<5, id: \.self) { star in
-                                                Image(systemName: star < dish.rating ? "star.fill" : "star")
-                                                    .font(.system(size: 12))
-                                                    .foregroundColor(star < dish.rating ? .yellow : .gray)
-                                            }
-                                        }
-                                        .padding(.top, 3)
-                                        .padding(.bottom, 6)
-                                        HStack{
-                                            Image(dish.chefImage)
-                                                .resizable()
-                                                .frame(width: 30, height: 30, alignment: .leading)
-                                                .clipShape(Circle())
-                                            
-                                            Text(dish.chefName)
-                                                .foregroundColor(Color.black.opacity(0.3))
-                                                .font(.system(size: 15))
-                                        }
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    VStack{
-                                        Image(dish.image)
-                                            .resizable()
-                                            .frame(width: 90, height: 90)
-                                            .clipShape(Circle())
-                                        
-                                        HStack{
-                                            Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
-                                                .resizable()
-                                                .frame(width: 17, height: 17, alignment: .center)
-                                                .foregroundColor(Color.black.opacity(0.3))
-                                                .padding(.bottom, 30)
-                                            
-                                            Text(dish.time)
-                                                .foregroundColor(Color.black.opacity(0.3))
-                                                .padding(.bottom, 30)
-                                                .font(.system(size: 15))
-                                        }
-                                    }
-                                   
+                            // Display 5-star rating
+                            HStack {
+                                ForEach(0..<5, id: \.self) { star in
+                                    Image(systemName: star < dish.rating ? "star.fill" : "star")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(star < dish.rating ? .yellow : .gray)
                                 }
                             }
-                            .frame(width: 240, height: 130)
+                            .padding(.top, 3)
+                            .padding(.bottom, 6)
+                            HStack{
+                                Image(dish.chefImage)
+                                    .resizable()
+                                    .frame(width: 30, height: 30, alignment: .leading)
+                                    .clipShape(Circle())
+                                
+                                Text(dish.chefName)
+                                    .foregroundColor(Color.black.opacity(0.3))
+                                    .font(.system(size: 15))
+                            }
                         }
+                        
+                        Spacer()
+                        
+                        VStack{
+                            Image(dish.image)
+                                .resizable()
+                                .frame(width: 90, height: 90)
+                                .clipShape(Circle())
+                            
+                            HStack{
+                                Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                                    .resizable()
+                                    .frame(width: 17, height: 17, alignment: .center)
+                                    .foregroundColor(Color.black.opacity(0.3))
+                                    .padding(.bottom, 30)
+                                
+                                Text(dish.time)
+                                    .foregroundColor(Color.black.opacity(0.3))
+                                    .padding(.bottom, 30)
+                                    .font(.system(size: 15))
+                            }
+                        }
+                    
                     }
                 }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 20)
+                .frame(width: 240, height: 130)
+                }
+            }
+        }
+          .padding(.horizontal, 30)
+            .padding(.bottom, 20)
             }
         }
     }

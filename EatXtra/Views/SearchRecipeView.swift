@@ -16,7 +16,7 @@ struct SearchRecipeView: View {
 struct SearchView: View {
     @Binding var query: String
     @Binding var isLoading: Bool
-    @Binding var results: [Recipe] // ✅ Use your model type
+    @Binding var results: [Recipe]
     @ObservedObject var viewModel: SearchViewViewModel
     
     var body: some View {
@@ -32,6 +32,8 @@ struct SearchView: View {
                         TextField("Search recipe", text: $query, onCommit: {
                             performSearch()
                         })
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
                         .font(.callout)
                         .foregroundColor(Color.black.opacity(0.8))
                         .padding(.leading, 5)

@@ -53,7 +53,7 @@
 			path = EatXtraUITests;
 			sourceTree = "<group>";
 		};
-		0FED00142E01427100C887F4 /* UIScreenShots */ = {
+		0FED01182E01457100C887F4 /* UIScreenShots */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = UIScreenShots;
 			sourceTree = "<group>";
@@ -93,11 +93,11 @@
 		0FB8ECDB2D34DB8C0056A3F3 = {
 			isa = PBXGroup;
 			children = (
-				0FED00142E01427100C887F4 /* UIScreenShots */,
 				0FB8ECE62D34DB8D0056A3F3 /* EatXtra */,
 				0FB8ECF72D34DB8E0056A3F3 /* EatXtraTests */,
 				0FB8ED012D34DB8E0056A3F3 /* EatXtraUITests */,
 				0FB8ECE52D34DB8D0056A3F3 /* Products */,
+				0FED01182E01457100C887F4 /* UIScreenShots */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,7 +128,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0FB8ECE62D34DB8D0056A3F3 /* EatXtra */,
-				0FED00142E01427100C887F4 /* UIScreenShots */,
+				0FED01182E01457100C887F4 /* UIScreenShots */,
 			);
 			name = EatXtra;
 			packageProductDependencies = (

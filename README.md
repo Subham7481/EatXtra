@@ -17,14 +17,14 @@ CoreData – Local data persistence
 
 📷 Preview
 <p align="center">
-  <img src="UIScreenshots/LaunchScreen.png" alt="Launch Screen" width="250" height="500"/>
-  <img src="UIScreenshots/LoginView.png" alt="Login View" width="250" height="500"/>
-  <img src="UIScreenshots/SignUpView.png" alt="Signup View" width="250" height="500"/>
-  <img src="UIScreenshots/HomeView.png" alt="Home View" width="250" height="500"/>
-  <img src="UIScreenshots/NotificationsView.png" alt="Notifications View" width="250" height="500"/>
-  <img src="UIScreenshots/SearchView.png" alt="Search View" width="250" height="500"/>
-  <img src="UIScreenshots/RecipeDetailsView.png" alt="Recipe Details View" width="250" height="500"/>
-  <img src="UIScreenshots/ProfileView.png" alt="Profile View" width="250" height="500"/>
+  <img src="UIScreenShots/LaunchScreen.png" alt="Launch Screen" width="250" height="500"/>
+  <img src="UIScreenShots/LoginView.png" alt="Login View" width="250" height="500"/>
+  <img src="UIScreenShots/SignUpView.png" alt="Signup View" width="250" height="500"/>
+  <img src="UIScreenShots/HomeView.png" alt="Home View" width="250" height="500"/>
+  <img src="UIScreenShots/NotificationsView.png" alt="Notifications View" width="250" height="500"/>
+  <img src="UIScreenShots/SearchView.png" alt="Search View" width="250" height="500"/>
+  <img src="UIScreenShots/RecipeDetailsView.png" alt="Recipe Details View" width="250" height="500"/>
+  <img src="UIScreenShots/ProfileView.png" alt="Profile View" width="250" height="500"/>
 </p>
 
 🔧 Installation

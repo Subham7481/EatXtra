@@ -15,8 +15,17 @@ Xcode – Development environment
 Firebase – Backend services (Authentication, Database, Storage)
 CoreData – Local data persistence
 
-📷 Screenshots
-🚀 Coming soon!
+📷 Preview
+<p align="center">
+  <img src="UIScreenshots/LaunchScreen.png" alt="Launch Screen" width="250" height="500"/>
+  <img src="UIScreenshots/LoginView.png" alt="Login View" width="250" height="500"/>
+  <img src="UIScreenshots/SignUpView.png" alt="Signup View" width="250" height="500"/>
+  <img src="UIScreenshots/HomeView.png" alt="Home View" width="250" height="500"/>
+  <img src="UIScreenshots/NotificationsView.png" alt="Notifications View" width="250" height="500"/>
+  <img src="UIScreenshots/SearchView.png" alt="Search View" width="250" height="500"/>
+  <img src="UIScreenshots/RecipeDetailsView.png" alt="Recipe Details View" width="250" height="500"/>
+  <img src="UIScreenshots/ProfileView.png" alt="Profile View" width="250" height="500"/>
+</p>
 
 🔧 Installation
 1️⃣ Clone the repository

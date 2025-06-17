@@ -23,7 +23,7 @@ CoreData – Local data persistence
   <img src="UIScreenShots/HomeView.png" alt="Home View" width="250" height="500"/>
   <img src="UIScreenShots/NotificationsView.png" alt="Notifications View" width="250" height="500"/>
   <img src="UIScreenShots/SearchView.png" alt="Search View" width="250" height="500"/>
-  <img src="UIScreenShots/RecipeDetailsView.png" alt="Recipe Details View" width="250" height="500"/>
+  <img src="UIScreenShots/RecipeDetails.png" alt="Recipe Details View" width="250" height="500"/>
   <img src="UIScreenShots/ProfileView.png" alt="Profile View" width="250" height="500"/>
 </p>
 

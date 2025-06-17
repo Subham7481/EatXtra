@@ -91,6 +91,7 @@ struct ProfileMenu: View {
                 .foregroundColor(Color.black)
                 .padding()
         }.padding(.horizontal,15)
+        NavigationLink("", destination: LoginView(viewModel: LoginViewViewModel()), isActive: $navigateToLogin)
     }
 }
 

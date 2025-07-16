@@ -68,22 +68,6 @@ class ProfileViewViewModel: ObservableObject {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-//    func profileImagePath() -> URL? {
-//        let fileManager = FileManager.default
-//        if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
-//            return documentsURL.appendingPathComponent("profile_image.png") // You can change the name if needed
-//        }
-//        return nil
-//    }
-    
-//    func removeSavedImage() {
-//        let fileManager = FileManager.default
-//        if let path = profileImagePath() {
-//            try? fileManager.removeItem(at: path)
-//            self.profileImage = nil
-//        }
-//    }
-    
     var profileImagePath: URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("profile.jpg")

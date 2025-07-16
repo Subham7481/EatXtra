@@ -1,18 +1,18 @@
 //
-//  LaunchView.swift
+//  Animation.swift
 //  EatXtra
 //
-//  Created by Subham Patel on 20/01/25.
+//  Created by Subham Patel on 16/07/25.
 //
 
 import SwiftUI
 
-struct LaunchView: View {
+struct Animation: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    LaunchView()
+    Animation()
 }

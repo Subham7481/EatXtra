@@ -12,6 +12,7 @@ import Firebase
 struct EatXtraApp: App {
     @StateObject var viewModel = LoginViewViewModel()
     @StateObject var vm = ProfileViewViewModel()
+    @StateObject var savedManager = SavedRecipeViewModel()
     init(){
         FirebaseApp.configure()
     }
@@ -21,6 +22,7 @@ struct EatXtraApp: App {
             if viewModel.isLoggedIn {
                 HomeView(viewModel: vm)
                     .environmentObject(viewModel)
+                    .environmentObject(savedManager)
             } else {
                 SplashView()
             }
